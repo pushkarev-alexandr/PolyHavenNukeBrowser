@@ -13,6 +13,14 @@ def get_types() -> list[str]:
 
     return data
 
+def get_assets_by_type(type_name: str) -> dict:
+    req = Request(url=f"{BASE_URL}/assets?t={type_name}", headers=HEADERS)
+    with urlopen(req, timeout=TIMEOUT) as resp:
+        body = resp.read()
+        data = json.loads(body.decode("utf-8"))
+
+    return data
+
 def is_api_available() -> bool:
     req = Request(url=BASE_URL, headers=HEADERS)
     with urlopen(req, timeout=TIMEOUT) as resp:
