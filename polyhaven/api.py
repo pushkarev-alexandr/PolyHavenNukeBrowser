@@ -13,7 +13,6 @@ def get_types() -> list[str]:
 
     return data
 
-
 def is_api_available() -> bool:
     req = Request(url=BASE_URL, headers=HEADERS)
     with urlopen(req, timeout=TIMEOUT) as resp:
