@@ -3,6 +3,11 @@ import json
 
 from .settings import BASE_URL, HEADERS, TIMEOUT
 
+def is_api_available() -> bool:
+    req = Request(url=BASE_URL, headers=HEADERS)
+    with urlopen(req, timeout=TIMEOUT) as resp:
+        return resp.getcode() == 200
+
 def get_types() -> list[str]:
     req = Request(url=f"{BASE_URL}/types", headers=HEADERS)
     with urlopen(req, timeout=TIMEOUT) as resp:
@@ -26,8 +31,3 @@ def get_assets_by_type(type_name: str) -> dict:
         data = json.loads(body.decode("utf-8"))
 
     return data
-
-def is_api_available() -> bool:
-    req = Request(url=BASE_URL, headers=HEADERS)
-    with urlopen(req, timeout=TIMEOUT) as resp:
-        return resp.getcode() == 200

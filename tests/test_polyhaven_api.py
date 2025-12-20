@@ -1,13 +1,21 @@
-from polyhaven.api import get_types, is_api_available, get_assets
-
-
-def test_get_types():
-    assert get_types() == ["hdris", "textures", "models"]
-
+from polyhaven.api import *
 
 def test_is_api_available():
     assert is_api_available() is True
 
+def test_get_types():
+    assert get_types() == ["hdris", "textures", "models"]
+
+def test_get_assets():
+    assets = get_assets()
+    assert isinstance(assets, dict)
+    assert len(assets) > 0
+
+def test_get_assets_by_type():
+    for asset_type in ["hdris", "textures", "models"]:
+        assets = get_assets_by_type(asset_type)
+        assert isinstance(assets, dict)
+        assert len(assets) > 0
 
 def test_assets_have_thumbnail_url():
     """
